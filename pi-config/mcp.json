@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp@latest"],
+      "lifecycle": "lazy"
+    },
+    "chrome-devtools": {
+      "command": "/Users/kim/.config/opencode/bin/chrome-devtools-mcp",
+      "lifecycle": "lazy"
+    },
+    "context-mode": {
+      "command": "context-mode"
+    }
+  }
+}
