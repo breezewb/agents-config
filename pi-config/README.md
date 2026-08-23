@@ -65,6 +65,14 @@ Pi 的「IDE 眼睛」。给 Pi 加上 AST 级别的代码理解能力：
 
 - 📦 仓库：<https://github.com/mksglu/context-mode>
 
+#### `pi-observational-memory`
+
+省 token 的核心插件。帮助 Pi 在你工作时记住重要内容，使得当会话变长时你的代理不会失去上下文。
+
+可以在多次压缩中保持会话存活。您可以在长时间休息后重新回来。您可以在会话之间交接工作，减少上下文丢失。代理更有可能记住已作出的决定、重要事项以及工作为何如此形成的原因。
+
+- 📦 仓库：<https://github.com/elpapi42/pi-observational-memory>
+
 #### `pi-hermes-memory`
 
 跨会话记忆。让 Pi 记住你之前告诉过它的事（你的偏好、项目约定、之前踩过的坑），下次开新会话还能用上。记忆分 user / memory / project / failure 四类，可搜索。默认基于策略的 token 感知记忆，带 SQLite FTS5 检索 + 自动合并。
@@ -93,6 +101,13 @@ Playwright 浏览器自动化。让 Pi 能开浏览器、填表单、点按钮�
 MCP（Model Context Protocol）适配器。让 Pi 能连接任何 MCP server，把它的工具接进来。本仓库的 2 个 MCP server 就是通过它生效的。支持 OAuth、安全审查、按需懒启动。
 
 - 📦 仓库：<https://github.com/nicobailon/pi-mcp-adapter>
+
+#### `getpipher/vision`
+
+具备能力感知的视觉 + 粘贴扩展用于 pi coding agent。仅在活动的主要模型为纯文本时，将图像分析委托给视觉模型；对多模态模型则直接通过（零委托）。
+为 pi 添加了一个 describe_image 工具，该工具能够感知活动的主模型的输入模态——因此图像分析永不浪费。
+
+- 📦 仓库：<https://github.com/getpipher/vision>
 
 #### `pi-marketplace`
 
@@ -152,45 +167,8 @@ pi底部状态栏
 
 ---
 
-## 七、全局 Skill 清单（18 个）
+## pi-web
 
-所有 skill 都是全局的——装了包就处处可用，跟当前在哪个项目无关。
+pi 编程智能体的本地浏览器界面。Pi Web 与 pi 共用本机配置和会话文件，可在浏览器中查找和继续对话、运行智能体、配置模型与资源，并查看项目文件。
 
-| 类别 | Skill | 来源包 |
-| --- | --- | --- |
-| 研究/浏览 | `librarian`、`deep-research`、`chrome-devtools` | pi-web-access / @firstpick / 自定义 |
-| 浏览器 | `playwright-browser` | pi-playwright |
-| 上下文/知识库 | `context-mode`、`ctx-search`、`ctx-index`、`ctx-stats`、`ctx-purge`、`ctx-insight`、`ctx-doctor`、`ctx-upgrade` | context-mode |
-| 代码智能 | `pi-lens-ast-grep`、`pi-lens-lsp-navigation`、`pi-lens-write-ast-grep-rule`、`pi-lens-write-tree-sitter-rule` | pi-lens |
-| 代理编排 | `pi-subagents` | pi-subagents |
-| 主题 | `adapt-ghostty-theme-to-pi` | @victor-software-house |
-
-> 其中 `chrome-devtools` 是我放在 `~/.agents/skills/` 的自定义全局 skill，不在任何 npm 包里，需要自己创建（参考第二节「写一个 Skill」）。
-
----
-
-## 八、MCP Server（2 个）
-
-配置在 `mcp.json`，安装脚本会合并到 `~/.config/mcp/mcp.json`。
-
-### `context7`
-
-Upstash 的 Context7 MCP。给模型实时拉取第三方库的**最新文档**，避免它用过时的训练知识写代码。
-
-```json
-{
-  "command": "npx",
-  "args": ["-y", "@upstash/context7-mcp@latest"],
-  "lifecycle": "lazy"
-}
-```
-
-### `chrome-devtools`
-
-Chrome DevTools 远程控制，29 个工具（点击、截图、网络抓包、性能分析等）。配合 `chrome-devtools` skill 调试网页很顺手。
-
-> 这个 server 需要本地装一个 `chrome-devtools-mcp` 二进制，路径在 `mcp.json` 里是写死的，换机器后请改成你自己的路径。
-
-两个都设了 `"lifecycle": "lazy"`——按需启动，不常驻，省资源。
-
----
+- 📦 仓库：<https://github.com/agegr/pi-web>
