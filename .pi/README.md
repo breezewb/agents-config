@@ -165,6 +165,12 @@ pi底部状态栏
 
 - 📦 仓库：<https://github.com/Xichun123/pi-cometix-footer>
 
+#### `pi-compact-transcript`
+
+紧凑时间线。把每次工具调用压成一行暗色摘要，状态灯 `◆` 运行中闪烁灰色、成功变绿、失败变红；连续同类调用合并成一行（如 `◆ 4× read src/foo.ts`），失败始终单独可见；每轮结束追加一行总结（`Read 6 files, edited 2, ran 3 commands · 42s`）。覆盖包括 MCP 在内的所有工具，未知工具会智能提取 command/path/url 做预览。展开仍走全局 `Ctrl+O` 回落原生渲染；推荐配置 `hideThinkingBlock: true` + `outputPad: 0`。会话内可用 `/compact-transcript on|off` 随时开关。
+
+- 📦 仓库：<https://github.com/avhagedorn/pi-compact-transcript>
+
 ---
 
 ## pi-web
