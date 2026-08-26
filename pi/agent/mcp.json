@@ -6,11 +6,15 @@
       "lifecycle": "lazy"
     },
     "chrome-devtools": {
-      "command": "/Users/kim/.config/opencode/bin/chrome-devtools-mcp",
+      "command": "npx",
+      "args": ["-y", "chrome-devtools-mcp@latest"],
       "lifecycle": "lazy"
     },
     "context-mode": {
       "command": "context-mode"
+    },
+    "searchcode": {
+      "url": "https://api.searchcode.com/v1/mcp"
     }
   }
 }

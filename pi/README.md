@@ -14,6 +14,20 @@
 
 ---
 
+### 🛠️ 自带 Skill
+
+#### `ssh-skill`（本地移植版）
+
+SSH 工作流 skill，移植自 [badseal/ssh-skill](https://github.com/badseal/ssh-skill) v4.0.0（MIT）。统一的 Python CLI 封装远程命令执行、上传/下载、服务器间传输、集群批量操作（预览门 + 生产确认门）、配置管理、隧道和连接守护进程，跨 Windows/macOS/Linux 输出统一 JSON 结果协议。安全默认值：主机密钥 `accept-new`、拒绝明文密码入配置、agent forwarding 默认关、超时返回 `outcome_unknown` 防止盲目重试。
+
+- 📂 本地位置：`pi/skills/ssh-skill/`（仅移植到本项目，未安装到 pi；是否启用自行决定）
+- ⚙️ 依赖：Python ≥ 3.10、OpenSSH 客户端、Paramiko（`pip install --user paramiko`）
+- ✅ 自检：`python3 pi/skills/ssh-skill/scripts/ssh_skill.py doctor --json`
+
+移植改动仅限 `SKILL.md`（frontmatter 适配 Agent Skills 标准 + pi 相对路径约定），CLI 代码与上游一致。启用方式见 `pi/skills/ssh-skill/README.md`。
+
+---
+
 ### 🤖 代理编排与工作流
 
 #### `pi-subagents`
@@ -79,6 +93,12 @@ Pi 的「IDE 眼睛」。给 Pi 加上 AST 级别的代码理解能力：
 
 - 📦 仓库：<https://github.com/chandra447/pi-hermes-memory>
 
+#### `@ff-labs/pi-fff`
+
+把 FFF 搜索引擎接进 Pi。Rust 原生、SIMD 加速的文件查找和内容搜索，结果按 frecency（最近 + 常用）排序、git-aware，比内置 find/grep 快。提供三个工具：`fffind`（模糊找文件）、`ffgrep`（内容搜索）、`fff-multi-grep`（多模式 OR 逻辑搜索）。三种模式经 `/fff-mode` 切换：`tools-and-ui`（默认，同时升级 `@` 文件补全为排序索引）、`tools-only`、`override`（完全替换内置 find/grep）。本地原生绑定运行，无需安装 Rust 工具链。
+
+- 📦 仓库：<https://github.com/dmtrKovalenko/fff>（npm 包 `@ff-labs/pi-fff`）
+
 ### 🌐 浏览、检索与外部接入
 
 #### `pi-web-access`
@@ -116,6 +136,12 @@ Pi 包市场入口。在 Pi 里直接搜索、查看详情、安全审计、安�
 - 📦 仓库：<https://pi.dev/packages/pi-marketplace>
 
 ### ✨ 实用工具与主题
+
+#### `@juicesharp/rpiv-ask-user-question`
+
+让模型别猜，直接问你。给 Pi 一个 `ask_user_question` 工具：终端底部弹出结构化问卷，最多 4 个问题一次问完，每个问题 2-4 个带说明的选项，选项可附 markdown 预览（mockup / 代码片段 / 配置示例）并排对比。始终可自由输入回答，支持单题备注（`n`）、全局备注、Submit 页统一确认后再提交；`Ctrl+]` 折叠浮层回看对话，答案不丢。RPC / ACP 等 host 里走原生对话框，非交互运行时自动摘除该工具而非报错。
+
+- 📦 仓库：<https://github.com/juicesharp/rpiv-mono>
 
 #### `@juicesharp/rpiv-todo`
 
