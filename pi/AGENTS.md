@@ -3,6 +3,7 @@
 ## 语言和环境
 
 - **语言**: 所有输出（回复、代码注释和 commit 信息）一律使用简体中文
+- **commit 规范**: 使用 Conventional Commits 前缀（feat/fix/docs/chore/refactor/test/perf 等），格式 `type: 描述`
 - **操作系统**: Debian 13
 - **环境限制**: 系统使用mise管理uv、bun、nodejs、python、java、npm全局包、pipx全局包等
 
