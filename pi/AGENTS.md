@@ -2,20 +2,26 @@
 
 ## 语言和环境
 
-- **语言**: 所有输出（包括思考过程、回复、代码注释和 commit 信息）一律使用简体中文
+- **语言**: 所有输出（回复、代码注释和 commit 信息）一律使用简体中文
 - **操作系统**: Debian 13
-- **环境限制**: 系统使用mise管理工具和SDK
+- **环境限制**: 系统使用mise管理uv、bun、nodejs、python、java、npm全局包、pipx全局包等
 
-## 权限
+## mise 全局包管理
 
-- 拥有读取任意文件的权限，无需询问确认
+安装全局包必须走 mise backend，禁止直接用系统 npm/pip：
+
+- **npm 全局包** → `mise use -g npm:<包名>`（如 `mise use -g npm:pnpm`）
+- **pip 全局包** → `mise use -g pipx:<包名>`（如 `mise use -g pipx:ruff`；mise 检测到 uv 时会自动改用 uvx，无需预先安装 pipx）
+- 升级到最新 → `mise use -g <工具>@latest`（或 `mise upgrade <工具>`）
+
+原因：直接 `npm i -g` / `pip install` 的包装在当前 node/python 版本各自的全局路径下，升级或切换对应运行时后，这些全局包就丢失了。mise backend 把包装到 mise 统一管理的位置，跟随配置保持可用。
 
 ## 编码原则（核心哲学）
 
 ### 1. 先思考，再编码
 
 - 明确说明假设；有多种解读时，列出选项，不要悄悄选一个
-- 遇到更简单的方案，主动说出来；真正不清楚时，**停下来问**，主动使用 `grill-me-docs-standalone` skill 询问
+- 遇到更简单的方案，主动说出来；真正不清楚时，**停下来问**
 
 ### 2. 简洁优先
 
@@ -47,8 +53,9 @@
 
 ### AI 自动执行（✅ 允许）
 
-- **文件操作**：使用专用工具（Read、Write、Edit、Glob、Grep），不用 find/grep/cat/echo 等 shell 命令
+- **文件操作**：使用专用工具代替 shell 命令
 - **Git 只读**：`git status/log/diff/branch/show/blame`
+- **项目外文件**：除读取外的任何操作（写入、删除、移动、重命名等）必须先经用户确认
 
 ### 提供给用户执行（bash/zsh 代码块）
 
@@ -58,64 +65,21 @@
 
 - 交互式命令（文本编辑器、交互式安装向导）
 - 系统管理命令（需要管理员权限）
-- 文件操作 shell 命令（rm、cp、mv、curl 等）
 
 ## 核心工作流
 
 ### 普通功能
 
-规划 → 编码 → `/code-review-expert` → `/gencom` 提交
+规划 → 编码 → code review
 
 ### 复杂功能 / 架构变更
 
-`/planning-with-files` 生成计划 → 用户确认 → 分阶段实现 → 全面审查 → `/gencom` 提交
-
-### 自动触发代理
-
-| 代理                   | 触发条件                               |
-| ---------------------- | -------------------------------------- |
-| `/code-review-expert`  | 写完任何代码后，立即触发（必须）       |
-| `/planning-with-files` | 复杂功能或大型重构，编码前触发（推荐） |
+生成计划 → 用户确认 → 分阶段实现 → 全面审查
 
 ## MCP 工具
 
-当前配置了 3 个 MCP 服务器，按需调用。首次使用某服务器时需先 `connect`。
-
-### searchcode — 公开 Git 仓库代码搜索/分析（6 tools）
-
-| 工具 | 用途 |
-|------|------|
-| `searchcode_code_search` | 跨任意公开 Git 仓库快速搜索代码 |
-| `searchcode_code_analyze` | 仓库概览：语言、复杂度、目录结构 |
-| `searchcode_code_get_file` | 获取远程仓库单个文件内容 |
-| `searchcode_code_get_files` | 批量获取远程仓库多个文件内容 |
-| `searchcode_code_file_tree` | 列出远程仓库的目录/文件树 |
-| `searchcode_code_get_findings` | 获取远程仓库代码质量分析结果 |
-
-> 适用场景：分析开源项目、搜索别人怎么实现某个功能、查看依赖源码。
-
-### tavily-remote-mcp — 网络搜索与网页提取（5 tools）
-
-| 工具 | 用途 |
-|------|------|
-| `tavily-remote-mcp_tavily_search` | 搜索当前信息、新闻、事实 |
-| `tavily-remote-mcp_tavily_extract` | 提取指定 URL 的页面内容（纯文本） |
-| `tavily-remote-mcp_tavily_crawl` | 从起始 URL 开始爬取网站，提取页面内容 |
-| `tavily-remote-mcp_tavily_map` | 映射网站结构，返回 URL 列表 |
-| `tavily-remote-mcp_tavily_research` | 对某个话题进行深度综合研究 |
-
-> 适用场景：查最新信息、新闻、事实，或需要读取某个网页内容时。
-
-
-### chrome-devtools — Chrome 浏览器自动化（3 tools）
-
-| 工具 | 用途 |
-|------|------|
-| `chrome-devtools_navigate` | 加载/跳转 URL |
-| `chrome-devtools_screenshot` | 截图 |
-| `chrome-devtools_evaluate` | 执行 JS 脚本 |
-
-> 适用场景：需要浏览器交互时（登录、JS 渲染页面、截图验证等）。
+当前配置了 MCP 服务器，按需调用。首次使用某服务器时需先 `connect`。
+**如果配置了 `代码语义检索/LSP` 之类的MCP，例如 `idea` `serena`，必须使用该类MCP代替原始工具和shell命令**
 
 ### 使用方式
 
@@ -125,13 +89,3 @@
 - 查看工具详情：`mcp({ describe: "tool_name" })`
 - 调用工具：`mcp({ tool: "tool_name", args: { ... } })`
 - 批量调用：用 `mcpScript` 编写 JavaScript 串联多个调用
-
-## 工作原则
-
-- 优先查阅项目级 `CLAUDE.md`或者`AGENTS.md`
-- 优先编辑现有文件，不创建新文件
-
-## 错误处理
-
-- **工具失败**：分析原因 → 尝试替代方案（Glob 失败 → 试 Grep）→ 连续失败 3 次向用户说明
-- **构建/测试失败**：增量修复，一次处理一个错误，每次修复后验证

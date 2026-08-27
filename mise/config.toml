@@ -1,0 +1,18 @@
+[tools]
+nodejs = "lts"
+python = "3.14"
+uv = "latest"
+bun = "latest"
+java = "liberica-25"
+maven = "3.9"
+"npm:@earendil-works/pi-coding-agent" = "latest"
+"npm:@openai/codex" = "latest"
+"npm:@mindfoldhq/trellis" = "latest"
+"npm:@agegr/pi-web" = "latest"
+"npm:context-mode" = "latest"
+"pipx:trash-cli" = "latest"
+
+[env]
+
+[settings]
+legacy_version_file = true
