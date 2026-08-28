@@ -1,5 +1,5 @@
 [tools]
-nodejs = "lts"
+node = "lts"
 python = "3.14"
 uv = "latest"
 bun = "latest"
