@@ -80,7 +80,7 @@
 ## MCP 工具
 
 当前配置了 MCP 服务器，按需调用。首次使用某服务器时需先 `connect`。
-**如果配置了 `代码语义检索/LSP` 之类的MCP，例如 `idea` `serena`，必须使用该类MCP代替原始工具和shell命令**
+**如果配置了 `代码语义检索/LSP` 之类的MCP，例如 `idea` `serena` `codegraph`，必须使用该类MCP代替原始工具和shell命令**
 
 ### 使用方式
 
