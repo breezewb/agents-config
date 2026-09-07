@@ -1,33 +1,114 @@
 {
-  "providers": {
-    "商汤科技": {
-      "baseUrl": "https://token.sensenova.cn/v1",
-      "api": "openai-completions",
-      "apiKey": "sk-xxx",
-      "models": [
-        {
-          "id": "sensenova-6.8-flash-lite",
-          "name": "sensenova-6.8",
-          "reasoning": true,
-          "input": ["text"],
-          "contextWindow": 256000,
-          "maxTokens": 64000,
-          "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 }
-        },
-        {
-          "id": "deepseek-v4-flash",
-          "name": "deepseek-v4-flash",
-          "reasoning": true,
-          "input": ["text"],
-          "compat": {
-            "supportsReasoningEffort": true,
-            "supportsDeveloperRole": false
-          },
-          "cost": { "input": 1, "output": 2, "cacheRead": 0.02, "cacheWrite": 0 },
-          "contextWindow": 1000000,
-          "maxTokens": 64000
+    "providers": {
+        "clinepass": {
+            "baseUrl": "https://api.cline.bot/api/v1",
+            "api": "openai-completions",
+            "apiKey": "sk_xxx",
+            "headers": {
+                "x-client-type": "cline-cli"
+            },
+            "models": [
+                {
+                    "id": "deepseek/deepseek-v4-flash-0731",
+                    "name": "deepseek-v4-flash",
+                    "reasoning": true,
+                    "thinkingLevelMap": {
+                        "minimal": null,
+                        "low": "low",
+                        "medium": null,
+                        "high": "high",
+                        "xhigh": null,
+                        "max": "max"
+                    },
+                    "input": ["text"],
+                    "compat": {
+                        "supportsReasoningEffort": true,
+                        "supportsDeveloperRole": false
+                    },
+                    "contextWindow": 1000000,
+                    "maxTokens": 64000
+                },
+                {
+                    "id": "deepseek/deepseek-v4-flash-vision-exp",
+                    "name": "deepseek-v4-flash-vision-exp",
+                    "reasoning": true,
+                    "thinkingLevelMap": {
+                        "minimal": null,
+                        "low": "low",
+                        "medium": null,
+                        "high": "high",
+                        "xhigh": null,
+                        "max": "max"
+                    },
+                    "input": ["text", "image"],
+                    "compat": {
+                        "supportsReasoningEffort": true,
+                        "supportsDeveloperRole": false
+                    },
+                    "contextWindow": 1000000,
+                    "maxTokens": 64000
+                },
+                {
+                    "id": "openai/gpt-5.6-luna",
+                    "name": "gpt-5.6-luna",
+                    "reasoning": true,
+                    "thinkingLevelMap": {
+                        "minimal": null,
+                        "low": "low",
+                        "medium": "medium",
+                        "high": "high",
+                        "xhigh": "xhigh",
+                        "max": "max"
+                    },
+                    "input": ["text", "image"],
+                    "compat": {
+                        "supportsReasoningEffort": true,
+                        "supportsDeveloperRole": false
+                    },
+                    "contextWindow": 1000000,
+                    "maxTokens": 64000
+                },
+                {
+                    "id": "z-ai/glm-5.3-flash",
+                    "name": "glm-5.3-flash",
+                    "reasoning": true,
+                    "thinkingLevelMap": {
+                        "minimal": null,
+                        "low": "low",
+                        "medium": null,
+                        "high": "high",
+                        "xhigh": null,
+                        "max": "max"
+                    },
+                    "input": ["text", "image"],
+                    "compat": {
+                        "supportsReasoningEffort": true,
+                        "supportsDeveloperRole": false
+                    },
+                    "contextWindow": 1000000,
+                    "maxTokens": 64000
+                },
+                {
+                    "id": "z-ai/glm-5.3",
+                    "name": "glm-5.3",
+                    "reasoning": true,
+                    "thinkingLevelMap": {
+                        "minimal": null,
+                        "low": "low",
+                        "medium": null,
+                        "high": "high",
+                        "xhigh": null,
+                        "max": "max"
+                    },
+                    "input": ["text", "image"],
+                    "compat": {
+                        "supportsReasoningEffort": true,
+                        "supportsDeveloperRole": false
+                    },
+                    "contextWindow": 1000000,
+                    "maxTokens": 64000
+                }
+            ]
         }
-      ]
     }
-  }
 }
