@@ -1,0 +1,60 @@
+[cli]
+installer = "internal"
+
+[endpoints]
+models_base_url = "https://api.cline.bot/api/v1"
+
+[models]
+default = "deepseek-v4-flash"
+default_reasoning_effort = "max"
+
+[model."grok-4.6"]
+model = "grok-4.6"
+base_url = "https://grok.122199.xyz/v1"
+name = "Grok 4.6"
+api_backend = "responses"
+api_key = "g2a_xxx"
+supports_reasoning_effort = true
+reasoning_efforts = [
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+]
+context_window = 500000
+
+[model.deepseek-v4-flash]
+model = "cline-pass/deepseek-v4-flash"
+base_url = "https://api.cline.bot/api/v1"
+name = "deepseek-v4-flash"
+api_backend = "chat_completions"
+api_key = "sk_xxx"
+supports_reasoning_effort = true
+reasoning_effort = "max"
+reasoning_efforts = [
+    "low",
+    "high",
+    "max",
+]
+context_window = 500000
+
+[mcp_servers.context7]
+command = "npx"
+args = ["-y", "@upstash/context7-mcp@latest"]
+
+[mcp_servers.searchcode]
+url = "https://api.searchcode.com/v1/mcp"
+
+[features]
+# 关闭启动时模型/设置预取(省 2s + x.ai 网络请求)
+remote_fetch = false
+#关闭遥测上报(Sentry 崩溃上报/OTEL 追踪/会话指标)
+telemetry = false
+
+[diagnostics]
+#单独关闭 Sentry 错误上报(与 telemetry 双保险)
+error_reporting = false
+
+[session]
+# 上下文用到 70% 即自动压缩(默认 85),大会话 resume 更快
+auto_compact_threshold_percent = 70
